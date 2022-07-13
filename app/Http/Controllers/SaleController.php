@@ -102,9 +102,26 @@ class SaleController extends Controller
      * @param  \App\Models\Sale  $sale
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Sale $sale)
+    public function update(Request $request, Sale $sale,$id)
     {
-        //
+        $request->validate([
+            'nama_barang'=>'required',
+            'kategori'=>'required',
+            'harga'=>'required|numeric',
+        ]);
+
+        $no=DB::table('sales')->max('no');
+        $id_produk=DB::table('sales')->max('id_produk');
+        $sale=new Sale();
+        $sale=Sale::find($id);
+        $sale->no=$no+=1;
+        $sale->id_produk=$id_produk+=1;
+        $sale->nama_produk=$request->nama_barang;
+        $sale->kategori=$request->kategori;
+        $sale->harga=$request->harga;
+        $sale->status=$request->status;
+        $sale->save();
+        return redirect()->route('sales.index');
     }
 
     /**

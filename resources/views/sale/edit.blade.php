@@ -40,7 +40,7 @@
                         </ul>
                     </div>
                 @endif
-                <form action="{{ route('sales.store') }}" method="POST">@csrf
+                <form action="{{ route('sales.update',$sale->id) }}" method="POST">@csrf
                     <div class="card-body">
                       <div class="form-group">
                         <label for="nama_produk">Nama Barang</label>
